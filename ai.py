@@ -23,13 +23,13 @@ import cassio
 with open('config.json', 'r') as f:
     config = json.load(f)
 
-ASTRA_DB_APPLICATION_TOKEN = config['astra_db']['application_token']
-ASTRA_DB_ID = config['astra_db']['db_id']
-OPENAI_API_KEY = config['openai']['api_key']
-GITHUB_TOKEN = config['github']['token']
-AZURE_OPENAI_ENDPOINT = config['azure']['openai_endpoint']
-AZURE_OPENAI_MODELNAME = config['azure']['model_name']
-AZURE_OPENAI_EMBEDMODELNAME = config['azure']['embed_model_name']
+ASTRA_DB_APPLICATION_TOKEN = "AstraCS:AcdzriRNttodLZfRbrcaUDlQ:d5d4203e68f970bab60ade7fc18a4cf76eaab9bf153d703d2eb1c12ab7306e15"
+ASTRA_DB_ID = "d0bebb10-9f89-4482-966b-8fc24a086d70"
+OPENAI_API_KEY = "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"
+GITHUB_TOKEN = "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"
+AZURE_OPENAI_ENDPOINT = "https://models.inference.ai.azure.com"
+AZURE_OPENAI_MODELNAME = "gpt-4o"
+AZURE_OPENAI_EMBEDMODELNAME = "text-embedding-3-large"
 
 conversation_retrieval_chain = None
 chat_history = []
@@ -68,6 +68,7 @@ def init_llm():
     )
 
 def process_document(document_path):
+    init_llm()
     global conversation_retrieval_chain
     loader = PyPDFLoader(document_path)
     documents = loader.load()
@@ -95,7 +96,7 @@ def process_document(document_path):
     )
 
 def process_prompt(prompt):
-
+    init_llm()
     global chat_history
     global conversation_retrieval_chain
 
@@ -105,7 +106,4 @@ def process_prompt(prompt):
     chat_history.append((prompt,answer))
     return answer
 
-init_llm()
-path="Nithin_S_Resume1111.pdf"
-process_document(path)
 
